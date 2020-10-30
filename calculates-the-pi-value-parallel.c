@@ -4,7 +4,6 @@
 
 //library(ies)
 #include <mpi.h>
-#include <stdio.h>
 #include <stdlib.h>
 
 //new library(ies)
@@ -56,10 +55,12 @@ int main(int argc, char** argv){
     */
 
     /* Set parallel environment variables */
-    bool isMaster = (taskid == 0);
-    double local = sum, total;
+    bool isMaster;
+    double local = sum;
+    double total;
     double localVector[numtasks], totalVector[numtasks];
 
+    isMaster = (taskid == 0);
     if(isMaster){
         int master = 0;
         localVector[master] = step*local;

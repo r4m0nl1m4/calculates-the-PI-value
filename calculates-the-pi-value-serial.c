@@ -4,7 +4,6 @@
 
 //library(ies)
 #include <stdlib.h>
-#include <unistd.h> //use sleep
 
 //new library(ies)
 #include "./pi.h"
