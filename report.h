@@ -16,12 +16,12 @@ double getExecuteTime(struct timeval start, struct timeval end){
     return executeTime;
 }
 
-void saveResultReportOnFile(const char* fileName, double value, double executeTime){
+void saveResultReportOnFile(const char* fileName, double executeTime){
     FILE *fp = fopen(fileName, "a");  
     bool fileOpened = (fp != NULL) ? true : false;  
     if(fileOpened)
     {
-        fprintf(fp, "\t%lf  %1.2e [s] ", value, executeTime);
+        fprintf(fp, " %1.2e", executeTime);
         fclose(fp);
     }
     else{
@@ -35,11 +35,11 @@ void saveCPUReportOnFile(const char* fileName, int numtasks, int problemSize, do
     bool fileOpened = (fp != NULL) ? true : false;  
     if(fileOpened)
     {
-        fprintf(fp, "\n  runtime %1.2e [s] \n", executeTime);
-        fprintf(fp, "\n  Process      Total           problemSize    Total           LocalResult            CurrentResult\n");
+        fprintf(fp, "\n    Runtime %1.2e [s] \n", executeTime);
+        fprintf(fp, "\n    Process        Total  problemSize        Total        Local        Total\n");
         for( int process=0; process<numtasks; process++ )
-            fprintf(fp, "  %d\t\t%d\t\t%d\t\t%d\t\t%lf\t\t%lf\n", process, numtasks, problemSize/numtasks, problemSize, local[process], total[process]);
-        fprintf(fp, "--------------------------------------------------------------------------------------------------\n");
+            fprintf(fp, " %10d   %10d   %10d   %10d   %10lf   %10lf\n", process, numtasks, problemSize/numtasks, problemSize, local[process], total[process]);
+        fprintf(fp, "--------------------------------------------------------------------------------\n");
         fclose(fp);
     }
     else{

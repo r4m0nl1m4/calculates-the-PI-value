@@ -4,8 +4,8 @@
 
 #remove temp. files
 rm result_report-parallel-cpu.txt
-rm result_report-serie.txt
-rm result_report-parallel.txt
+rm result_report-serie-runtime.txt
+rm result_report-parallel-runtime.txt
 rm calculates-the-pi-value-serial
 rm calculates-the-pi-value-parallel
 
@@ -23,8 +23,8 @@ cat /proc/cpuinfo | grep 'siblings' | uniq >> "result_report-parallel-cpu.txt"
 cat /proc/cpuinfo | grep 'cache size' | uniq >> "result_report-parallel-cpu.txt"
 echo -e "\n /* Calculation Reports */ " >> "result_report-parallel-cpu.txt"
 
-echo -e "\n/* \n * Result Report Serie \n */" >> "result_report-serie.txt"
-echo -e "\n/* \n * Result Report Parallel \n */" >> "result_report-parallel.txt"
+echo -e "\n/* \n * Runtime Report In Seconds\n */" >> "result_report-serie-runtime.txt"
+echo -e "\n/* \n * Runtime Report In Seconds\n */" >> "result_report-parallel-runtime.txt"
 
 #attempts by number of cores and size
 attempts=5
@@ -32,8 +32,8 @@ for cores in 2 4 6 8
 do 
 	for sizeProblem in 800 1600
 	do 
-		echo -e "\n\t$cores\t$sizeProblem\c" >> "result_report-serie.txt"
-		echo -e "\n\t$cores\t$sizeProblem\c" >> "result_report-parallel.txt"
+		echo -e "\n $cores $sizeProblem\t\c" >> "result_report-serie-runtime.txt"
+		echo -e "\n $cores $sizeProblem\t\c" >> "result_report-parallel-runtime.txt"
 	    echo -e "\n $cores Cores CPU - Size Problem $sizeProblem \n" >> "result_report-parallel-cpu.txt"
 		for attempt in $(seq $attempts)
 		do
@@ -45,4 +45,11 @@ do
 		done 
 	done
 done
+
+#txt2pdf
+vim result_report-serie-runtime.txt -c "hardcopy > serie-runtime.ps | q"; ps2pdf serie-runtime.ps; rm serie-runtime.ps
+vim result_report-parallel-runtime.txt -c "hardcopy > parallel-runtime.ps | q"; ps2pdf parallel-runtime.ps; rm parallel-runtime.ps
+vim result_report-parallel-cpu.txt -c "hardcopy > parallel-cpu.ps | q"; ps2pdf parallel-cpu.ps; rm parallel-cpu.ps
+pdfunite serie-runtime.pdf parallel-runtime.pdf parallel-cpu.pdf report.pdf; rm serie-runtime.pdf; rm parallel-runtime.pdf; rm parallel-cpu.pdf
+
 exit

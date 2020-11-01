@@ -84,7 +84,7 @@ int main(int argc, char** argv){
         executeTime = timeEnd-timeStart;
 
         saveCPUReportOnFile("result_report-parallel-cpu.txt", numtasks, (int) problemSize, localVector, totalVector, executeTime);
-        saveResultReportOnFile("result_report-parallel.txt", total, executeTime);
+        saveResultReportOnFile("result_report-parallel-runtime.txt", executeTime);
     }
     else /* Send  local to process 0 */
         MPI_Send(&local, 1, MPI_DOUBLE, 0, i, MPI_COMM_WORLD);

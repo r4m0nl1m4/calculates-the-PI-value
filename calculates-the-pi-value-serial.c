@@ -26,7 +26,7 @@ int main(int argc, char** argv){
 
     executeTime = getExecuteTime(timeStart, timeEnd);  
 
-    saveResultReportOnFile("result_report-serie.txt", pi, executeTime);
+    saveResultReportOnFile("result_report-serie-runtime.txt", executeTime);
 
     return 0;
 }
