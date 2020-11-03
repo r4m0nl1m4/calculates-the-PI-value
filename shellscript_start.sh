@@ -3,9 +3,9 @@
 # To run on terminal: ./shellscript_start.sh
 
 #remove temp. files
-rm result_report-parallel-cpu.txt
 rm result_report-serie-runtime.txt
 rm result_report-parallel-runtime.txt
+rm result_report-parallel-cpu.txt
 rm calculates-the-pi-value-serial
 rm calculates-the-pi-value-parallel
 
@@ -30,7 +30,7 @@ echo -e "\n/* \n * Runtime Report In Seconds\n */" >> "result_report-parallel-ru
 attempts=5
 for cores in 2 4 6 8
 do 
-	for sizeProblem in 800 1600
+	for sizeProblem in 20000 40000
 	do 
 		echo -e "\n $cores $sizeProblem\t\c" >> "result_report-serie-runtime.txt"
 		echo -e "\n $cores $sizeProblem\t\c" >> "result_report-parallel-runtime.txt"
