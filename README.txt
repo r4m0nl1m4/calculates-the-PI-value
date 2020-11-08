@@ -9,8 +9,10 @@
 //                                                                         //
 // Names: pi.h                                                             //
 //        report.h                                                         //
-//        calculates-the-pi-value-serial.c                                 //
-//        calculates-the-pi-value-parallel.c                               //
+//        report.pdf                                                       //
+//        calculates-the-pi-value-serial.cpp                               //
+//        calculates-the-pi-value-parallel.cpp                             //
+//        calculates-serie-parallel-analysis.cpp                           //
 //        shellscript_start.sh                                             //
 //        README.txt                                                       //
 // Date: 14/10/2020                                                        //
