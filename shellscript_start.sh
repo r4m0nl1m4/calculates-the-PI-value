@@ -2,6 +2,7 @@
 
 # To run on terminal: ./shellscript_start.sh
 
+fileName0="README.txt"
 fileName1="result_report-cpu.txt"
 fileName2="result_report-serie-runtime.txt"
 fileName3="result_report-parallel-runtime.txt"
@@ -74,15 +75,16 @@ echo -e
 txt2pdf(){
     vim $1 -c "hardcopy > $1.ps | q";ps2pdf $1.ps; rm $1.ps
 }
+txt2pdf $fileName0
 txt2pdf $fileName1
 txt2pdf $fileName2
 txt2pdf $fileName3
 txt2pdf $fileName4
 txt2pdf $fileName5
 
-pdfunite $fileName1.pdf $fileName2.pdf $fileName3.pdf $fileName4.pdf $fileName5.pdf report.pdf
+pdfunite $fileName0.pdf $fileName1.pdf $fileName2.pdf $fileName3.pdf $fileName4.pdf $fileName5.pdf report.pdf
 
-rm $fileName1.pdf $fileName2.pdf $fileName3.pdf $fileName4.pdf $fileName5.pdf
+rm $fileName0.pdf $fileName1.pdf $fileName2.pdf $fileName3.pdf $fileName4.pdf $fileName5.pdf
 rm $fileName1 $fileName2 $fileName3 $fileName4 $fileName5
 rm calculates-the-pi-value-serial
 rm calculates-the-pi-value-parallel
