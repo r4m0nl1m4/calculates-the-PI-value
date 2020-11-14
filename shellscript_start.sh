@@ -12,7 +12,7 @@ fileName5="result_report-parallel-cpu.txt"
 fileHeader1="\n/* \n * CPU Report                         \n */\n"
 fileHeader2="\n/* \n * Serie Runtime Report In Seconds    \n */  "
 fileHeader3="\n/* \n * Parallel Runtime Report In Seconds \n */  "
-fileHeader4="\n/* \n * Speedup Report In %                \n */  "
+fileHeader4="\n/* \n * Speedup Report                     \n */  "
 fileHeader5="\n/* \n * Parallel Calculation Report        \n */  "
 
 echo -e "$fileHeader1" >> $fileName1
@@ -41,7 +41,7 @@ insertCPUInfo $fileName1 'cache size'
 attempts=5
 for cores in 2 4 6 8
 do 
-	for sizeProblem in 20000 40000
+	for sizeProblem in 2000 4000
 	do 
 		echo -e "\n $cores $sizeProblem\t\c                        " >> $fileName2
 		echo -e "\n $cores $sizeProblem\t\c                        " >> $fileName3

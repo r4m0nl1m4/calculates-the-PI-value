@@ -25,7 +25,7 @@ double getExecuteTime(struct timeval start, struct timeval end){
 
 double getSpeedup(double timeSerie, double timeParallel){
     double speedup;
-    speedup = ( timeSerie / timeParallel )*100;
+    speedup = ( timeSerie / timeParallel );
     return speedup;
 }
 
