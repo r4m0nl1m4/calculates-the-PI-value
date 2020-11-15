@@ -29,6 +29,12 @@ double getSpeedup(double timeSerie, double timeParallel){
     return speedup;
 }
 
+double getEfficiency(double speedup, double cores){
+    double efficiency;
+    efficiency = ( speedup / cores );
+    return efficiency;
+}
+
 /*
  * Data Search
  */

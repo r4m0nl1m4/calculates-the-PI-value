@@ -43,7 +43,8 @@ for cores in 2 4 6 8
 do 
 	for sizeProblem in 2000 4000
 	do 
-		echo -e "\n $cores $sizeProblem\t\c                        " >> $fileName2
+		serie=' '
+		echo -e "\n $serie $sizeProblem\t\c                        " >> $fileName2
 		echo -e "\n $cores $sizeProblem\t\c                        " >> $fileName3
 		echo -e "\n $cores $sizeProblem\t\c                        " >> $fileName4
 	    echo -e "\n $cores Cores CPU - Size Problem $sizeProblem \n" >> $fileName5
