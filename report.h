@@ -64,22 +64,19 @@ int getDataLine(const char* fileName1, const char* fileName2){
     return 0;
 }
 
-int getDataColumn(const char* fileName1, const char* fileName2, int dataLine){
-    FILE *fp1 = fopen(fileName1, "r");
-    FILE *fp2 = fopen(fileName2, "r");
-    bool fileOpened1 = (fp1 != NULL) ? true : false;
-    bool fileOpened2 = (fp2 != NULL) ? true : false; 
-    if (fileOpened1 && fileOpened2){
-        char line1[256], line2[256];
+int getDataColumn(const char* fileName, int dataLine){
+    FILE *fp1 = fopen(fileName, "r");
+    bool fileOpened = (fp1 != NULL) ? true : false;
+    if (fileOpened){
+        char line1[256];
         int lineSize, lineCount, matchCount, dataColumn;
         lineSize = sizeof line1;
         lineCount = 1;
         matchCount = 0;
         for(int i=0; i<lineSize; i++){
             line1[i]='\0';
-            line2[i]='\0';
         }
-        while ((fgets(line1, lineSize, fp1) != NULL)&&(fgets(line2, lineSize, fp2) != NULL))
+        while (fgets(line1, lineSize, fp1) != NULL)
         {
             if (lineCount == dataLine){
                 //printf("dataline[%d] = %s \n", dataLine, line1);
@@ -96,19 +93,17 @@ int getDataColumn(const char* fileName1, const char* fileName2, int dataLine){
             }
             for(int i=0; i<lineSize; i++){
                 line1[i]='\0';
-                line2[i]='\0';
             }
             lineCount++;
         }
 
         fclose(fp1);
-        fclose(fp2);
 
         return dataColumn;
     }
     else
     {
-        fprintf(stderr, "Can't open output files %s and %s!\n", fileName1, fileName2);
+        fprintf(stderr, "Can't open output files %s!\n", fileName);
         exit(1);  
     }
     return 0;
@@ -145,7 +140,7 @@ void getData(char *line, char *data, int dataColumn){
 
 double getSpeedupByFiles(const char* fileName1, const char* fileName2){
     int dataLine = getDataLine(fileName1, fileName2);
-    int dataColumn = getDataColumn(fileName1, fileName2, dataLine);
+    int dataColumn = getDataColumn(fileName1, dataLine);
     //printf("line = %d column = %d", dataLine, dataColumn);
     FILE *fp1, *fp2;
     bool fileOpened1, fileOpened2;
@@ -192,6 +187,56 @@ double getSpeedupByFiles(const char* fileName1, const char* fileName2){
     return 0;
 }
 
+double getEfficiencyByFiles(const char* fileName1, const char* fileName2){
+    int dataLine = getDataLine(fileName1, fileName2);
+    int dataColumn1 = getDataColumn(fileName1, dataLine);
+    int dataColumn2 = getDataColumn(fileName2, dataLine);
+    FILE *fp1, *fp2;
+    bool fileOpened1, fileOpened2;
+    fp1 = fopen(fileName1, "r");
+    fp2 = fopen(fileName2, "r");
+    fileOpened1 = (fp1 != NULL) ? true : false;
+    fileOpened2 = (fp2 != NULL) ? true : false; 
+    if (fileOpened1 && fileOpened2){
+        char line1[256], line2[256];
+        int lineSize, lineCount;
+        lineSize = sizeof line1;
+        lineCount = 1;
+        for(int i=0; i<lineSize; i++){
+            line1[i]='\0';
+            line2[i]='\0';
+        }
+        while ((fgets(line1, lineSize, fp1) != NULL)&&(fgets(line2, lineSize, fp2) != NULL)){
+            //printf("%s", &line1);
+            if (lineCount == dataLine){
+                //printf("\n lineSize1 = %d, dataColumn1 = %d, dataColumn2 = %d", lineSize, dataColumn1, dataColumn2);
+                int dataSize1 = getDataSize(line1, lineSize, dataColumn1);
+                int dataSize2 = getDataSize(line2, lineSize, dataColumn2);
+                //printf("\n speedupSize = %d, coresSize = %d \n", dataSize1, dataSize2);
+                char *data1 = new char[dataSize1+1];
+                char *data2 = new char[dataSize2+1];
+                getData(line1, data1, dataColumn1);
+                getData(line2, data2, dataColumn2);
+                //printf("\n speedup = %s, cores = %s \n", data1, data2);
+                double speedup, cores, efficiency;
+                speedup = atof(data1);
+                cores = atof(data2);
+                efficiency = getEfficiency(speedup, cores);
+                //printf("\n speedup = %1.2e, cores = %1.2e, efficiency = %.2f\n", speedup, cores, efficiency);
+                delete[] data1;
+                delete[] data2;
+                return efficiency;
+            }
+            lineCount++;
+        }
+    }
+    else{
+        fprintf(stderr, "Can't open output files %s and %s!\n", fileName1, fileName2);
+        exit(1);  
+    }
+    return 0;
+}
+
 /*
  * Save On File
  */
@@ -215,6 +260,11 @@ void saveResultReportOnFile(const char* fileName, double executeTime){
 
 void saveSpeedupReportOnFile(const char* fileName0, const char* fileName1, const char* fileName2){
     double speedup = getSpeedupByFiles(fileName1, fileName2);
+    saveDoubleOnFile(fileName0, speedup);
+}
+
+void saveEfficiencyReportOnFile(const char* fileName0, const char* fileName1, const char* fileName2){
+    double speedup = getEfficiencyByFiles(fileName1, fileName2);
     saveDoubleOnFile(fileName0, speedup);
 }
 
