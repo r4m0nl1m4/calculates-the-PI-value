@@ -254,18 +254,31 @@ void saveDoubleOnFile(const char* fileName, double value){
     }
 }
 
+void saveNumberOnFile(const char* fileName, double value){
+    FILE *fp = fopen(fileName, "a");  
+    bool fileOpened = (fp != NULL) ? true : false;  
+    if(fileOpened){
+        fprintf(fp, ":%.2f", value);
+        fclose(fp);
+    }
+    else{
+        fprintf(stderr, "Can't open output file %s!\n", fileName);
+        exit(1);        
+    }
+}
+
 void saveResultReportOnFile(const char* fileName, double executeTime){
     saveDoubleOnFile(fileName, executeTime);
 }
 
 void saveSpeedupReportOnFile(const char* fileName0, const char* fileName1, const char* fileName2){
     double speedup = getSpeedupByFiles(fileName1, fileName2);
-    saveDoubleOnFile(fileName0, speedup);
+    saveNumberOnFile(fileName0, speedup);
 }
 
 void saveEfficiencyReportOnFile(const char* fileName0, const char* fileName1, const char* fileName2){
     double speedup = getEfficiencyByFiles(fileName1, fileName2);
-    saveDoubleOnFile(fileName0, speedup);
+    saveNumberOnFile(fileName0, speedup);
 }
 
 void saveCPUReportOnFile(const char* fileName, int numtasks, int problemSize, double local[], double total[], double executeTime){
