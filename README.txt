@@ -26,7 +26,8 @@
 //                                                                         //
 /////////////////////////////////////////////////////////////////////////////
 //                                                                         //
-// Description: Calculates the PI value by serial and parallel computing.  //
+// Description: Calculates the PI value by Leibniz formula, developed  for //
+// use  on  serie  and  parallel  processors  with local interconnections. //
 //                                                                         //
 /////////////////////////////////////////////////////////////////////////////
 //                                                                         //
