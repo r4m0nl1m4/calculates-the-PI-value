@@ -1,5 +1,5 @@
 
-//Main for "pi" C application
+//Main for "pi" C++ application
 //Created by r4m0nl1m4 14/10/2020
 
 //Guard

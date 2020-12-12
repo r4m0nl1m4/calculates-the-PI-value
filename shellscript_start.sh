@@ -12,14 +12,14 @@ fileName6="result_report-speedup.txt"
 fileName7="result_report-efficiency.txt"
 fileName8="result_report-parallel-cpu.txt"
 
-fileHeader1="\n/* \n * CPU Report                         \n */\n"
-fileHeader2="\n/* \n * Problem Size Report                \n */  "
-fileHeader3="\n/* \n * Serie Runtime Report In Seconds    \n */  "
-fileHeader4="\n/* \n * Parallel Cores Report              \n */  "
-fileHeader5="\n/* \n * Parallel Runtime Report In Seconds \n */  "
-fileHeader6="\n/* \n * Speedup Report                     \n */  "
-fileHeader7="\n/* \n * Efficiency Report                  \n */  "
-fileHeader8="\n/* \n * Parallel Calculation Report        \n */  "
+fileHeader1="\n/* \n * CPU Report                                                               \n */\n"
+fileHeader2="\n/* \n * Problem Size Report                                                      \n */  "
+fileHeader3="\n/* \n * PI by Integration using Serie Process Runtime Report In Seconds          \n */  "
+fileHeader4="\n/* \n * CPU Cores Report                                                         \n */  "
+fileHeader5="\n/* \n * PI by Integration using Parallel Process (MPI) Runtime Report In Seconds \n */  "
+fileHeader6="\n/* \n * PI by Integration using Parallel Process (MPI) Speedup Report            \n */  "
+fileHeader7="\n/* \n * PI by Integration using Parallel Process (MPI) Efficiency Report         \n */  "
+fileHeader8="\n/* \n * PI by Integration using Parallel Process (MPI) Calculation Report        \n */  "
 
 echo -e "$fileHeader1" >> $fileName1
 echo -e "$fileHeader2" >> $fileName2

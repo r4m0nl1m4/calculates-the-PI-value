@@ -1,12 +1,8 @@
 
-//Main for "calculates-pi-value-parallel" C application
+//Main for "calculates-pi-value-parallel" C++ application
 //Created by r4m0nl1m4 14/10/2020
 
-//library(ies)
 #include <mpi.h>
-#include <stdlib.h>
-
-//new library(ies)
 #include "./report.h"
 
 MPI_Status status;
@@ -46,12 +42,14 @@ int main(int argc, char** argv){
         sum = sum + (1/(1+x*x));
     }
     /*
-    printf("\nDiscretization: taskid = %d\n", taskid);
-    printf("Discretization: nLocal = %lf\n", nLocal);
-    printf("Discretization: interval %lf-%lf\n", taskid*nLocal+1, (taskid+1)*nLocal+1);
-    printf("Discretization: step = %lf\n", step);
-    printf("Discretization: x = %lf\n", x);
-    printf("Discretization: sum = %lf\n", sum);
+    printf("\nDiscretization:    ");
+    printf("\n\t taskid = %d     ", taskid);
+    printf("\n\t nLocal = %lf    ", nLocal);
+    printf("\n\t interval %lf-%lf", taskid*nLocal+1, (taskid+1)*nLocal+1);
+    printf("\n\t step = %lf\n    ", step);
+    printf("\n\t x = %lf         ", x);
+    printf("\n\t sum = %lf       ", sum);
+    printf("\n");
     */
 
     /* Set parallel environment variables */
